@@ -9,5 +9,7 @@ ADD assets/bootstrap.sh /usr/local/bin/bootstrap.sh
 ADD assets/sshd_config /etc/ssh/sshd_config
 
 EXPOSE 22
+EXPOSE 80
+EXPOSE 8080
 
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/bootstrap.sh"]
