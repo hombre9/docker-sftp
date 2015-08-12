@@ -1,0 +1,48 @@
+# m-ko-x ssh conf
+
+# port can be obfuscated by proxy
+Port 22
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+UsePrivilegeSeparation yes
+
+KeyRegenerationInterval 3600
+ServerKeyBits 1024
+
+SyslogFacility AUTH
+LogLevel INFO
+
+LoginGraceTime 60
+PermitRootLogin no
+StrictModes yes
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+
+PermitEmptyPasswords no
+
+ChallengeResponseAuthentication no
+
+X11Forwarding no
+X11DisplayOffset 10
+PrintMotd yes
+PrintLastLog yes
+TCPKeepAlive yes
+
+MaxStartups 10:30:60
+Banner /etc/issue.net
+
+AcceptEnv LANG LC_*
+
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+UsePAM yes
