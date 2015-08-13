@@ -1,15 +1,18 @@
 FROM ubuntu:15.04
 MAINTAINER Markus Kosmal <code@m-ko-x.de>
 
-RUN apt-get update -y && \
-    apt-get install -yqq openssh-server mcrypt && \
-    mkdir /var/run/sshd && chmod 0755 /var/run/sshd
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server && \
+    rm -rf /var/lib/apt/lists/*
 
-ADD assets/bootstrap.sh /usr/local/bin/bootstrap.sh
-ADD assets/sshd_config /etc/ssh/sshd_config
+# sshd needs this directory to run
+RUN mkdir -p /var/run/sshd
+
+COPY assets/bootstrap /
+COPY assets/sshd_config /etc/ssh/sshd_config
 
 EXPOSE 22
 EXPOSE 80
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/bootstrap.sh"]
+ENTRYPOINT ["/bootstrap"]
